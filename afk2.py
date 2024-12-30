@@ -22,8 +22,7 @@ def check_status():
         return False
 
 def main(move_size):
-    # Run the movement logic for a short time and return control to `run`
-    for _ in range(100):  # Adjust the range to control the duration of the movement
+    for _ in range(100):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
@@ -35,7 +34,7 @@ def main(move_size):
             mouse.move(width, height - move_size)
             mouse.move(width - move_size, height - move_size)
             mouse.move(width - move_size, height)
-        time.sleep(0.01)  # Add a small delay to prevent excessive CPU usage
+        time.sleep(0.01)
 
 def run():
     move_size = 5
@@ -43,18 +42,13 @@ def run():
     status = False
 
     while True:
-        # Check status every 5 seconds
         if time.time() - last_check >= 60:
             status = check_status()
             last_check = time.time()
-        
-        # Update move_size based on the status
         if status:
             move_size = 0
         else:
             move_size = 5
-
-        # Run main with the current move_size
         main(move_size)
 
 run()
